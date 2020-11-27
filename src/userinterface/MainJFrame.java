@@ -15,6 +15,7 @@ import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.Reception.ReceptionMainJPanel;
 
 /**
  *
@@ -186,7 +187,10 @@ public class MainJFrame extends javax.swing.JFrame {
         else{
              System.out.println(MainJFrame.userAccount.getRole().getType());
              if (MainJFrame.userAccount.getRole().getType().equals("Reception")) {
-                
+                //ReceptionMainJPanel
+                CardLayout layout=(CardLayout)container.getLayout();
+                container.add("workArea",new ReceptionMainJPanel(this.system));
+                layout.next(container);
             }
              else{
                  CardLayout layout=(CardLayout)container.getLayout();
