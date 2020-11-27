@@ -185,9 +185,15 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         else{
              System.out.println(MainJFrame.userAccount.getRole().getType());
-            CardLayout layout=(CardLayout)container.getLayout();
-            container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
-            layout.next(container);
+             if (MainJFrame.userAccount.getRole().getType().equals("Reception")) {
+                
+            }
+             else{
+                 CardLayout layout=(CardLayout)container.getLayout();
+                container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
+                layout.next(container);
+             }
+            
         }
         
         loginJButton.setEnabled(false);
