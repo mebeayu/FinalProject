@@ -23,6 +23,7 @@ public class UserAccount {
     private WorkQueue workQueue;
     private FitnessList fitnessList;
     private DietList dietList;
+    public String Enterprise;
 
     public UserAccount() {
         workQueue = new WorkQueue();

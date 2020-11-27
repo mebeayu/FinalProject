@@ -186,6 +186,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         else{
              System.out.println(MainJFrame.userAccount.getRole().getType());
+             userAccount.Enterprise = inEnterprise.getName();
              if (MainJFrame.userAccount.getRole().getType().equals("Reception")) {
                 //ReceptionMainJPanel
                 CardLayout layout=(CardLayout)container.getLayout();
