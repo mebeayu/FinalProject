@@ -5,8 +5,10 @@
 package Business.UserAccount;
 
 import Business.Employee.Employee;
+import Business.Enterprise.Enterprise;
 import Business.Fitness.DietList;
 import Business.Fitness.FitnessList;
+import Business.Models.VipCustomer;
 import Business.Role.Role;
 import Business.WorkQueue.WorkQueue;
 
@@ -23,8 +25,8 @@ public class UserAccount {
     private WorkQueue workQueue;
     private FitnessList fitnessList;
     private DietList dietList;
-    public String Enterprise;
-
+    public Enterprise Enterprise;
+    public VipCustomer customer;
     public UserAccount() {
         workQueue = new WorkQueue();
         fitnessList = new FitnessList();

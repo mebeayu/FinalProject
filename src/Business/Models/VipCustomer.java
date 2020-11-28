@@ -5,11 +5,18 @@
  */
 package Business.Models;
 
+import Business.Enterprise.Enterprise;
+
 /**
  *
  * @author Administrator
  */
 public class VipCustomer extends User{
+    public String username;
+    public String psw;
+    public String Name;
+    public String Role;
+    public String Enterprise; 
     public String Age;
     public String Sex;
     public String Height;

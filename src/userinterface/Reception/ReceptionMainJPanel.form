@@ -20,7 +20,7 @@
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="197" max="-2" attributes="0"/>
+              <Component id="btnCourse" min="-2" pref="197" max="-2" attributes="0"/>
               <EmptySpace pref="836" max="32767" attributes="0"/>
           </Group>
           <Component id="layContainer" alignment="1" max="32767" attributes="0"/>
@@ -32,7 +32,7 @@
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCourse" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="layContainer" max="32767" attributes="0"/>
@@ -45,11 +45,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Customer Manager"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnCourse">
       <Properties>
         <Property name="text" type="java.lang.String" value="Course Manage"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCourseActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="layContainer">
 

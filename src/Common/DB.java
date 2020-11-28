@@ -31,7 +31,13 @@ public class DB {
     }
   
     public void Close(int t){
-        db.close();
+        try{
+            db.close();
+            _db = null;
+        }catch(Exception ex){
+            
+        } 
+        
     }
     public <T extends Object>  ObjectSet<T> _Query(Object o){
          try{

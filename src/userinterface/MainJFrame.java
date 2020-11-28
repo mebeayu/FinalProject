@@ -12,6 +12,7 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
+import Common.DB;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -186,18 +187,27 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         else{
              System.out.println(MainJFrame.userAccount.getRole().getType());
-             userAccount.Enterprise = inEnterprise.getName();
-             if (MainJFrame.userAccount.getRole().getType().equals("Reception")) {
-                //ReceptionMainJPanel
-                CardLayout layout=(CardLayout)container.getLayout();
-                container.add("workArea",new ReceptionMainJPanel(this.system));
-                layout.next(container);
-            }
-             else{
-                 CardLayout layout=(CardLayout)container.getLayout();
-                container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
-                layout.next(container);
+             userAccount.Enterprise = inEnterprise;
+             if(userAccount.customer==null){
+                if (MainJFrame.userAccount.getRole().getType().equals("Reception")) {
+                    CardLayout layout=(CardLayout)container.getLayout();
+                    container.add("workArea",new ReceptionMainJPanel(this.container));
+                    layout.next(container);
+                }
+                else if(MainJFrame.userAccount.getRole().getType().equals("CommonTrainer")||MainJFrame.userAccount.getRole().getType().equals("PrivateTrainer")){
+                    
+                }
+
+                else{
+                    CardLayout layout=(CardLayout)container.getLayout();
+                   container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
+                   layout.next(container);
+                }
              }
+             else{
+                 
+             }
+             
             
         }
         
@@ -221,7 +231,9 @@ public class MainJFrame extends javax.swing.JFrame {
         container.add("blank", blankJP);
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
+         DB.getDB().Close(1);
         dB4OUtil.storeSystem(system);
+       
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
     /**

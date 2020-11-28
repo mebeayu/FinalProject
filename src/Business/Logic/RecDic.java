@@ -80,7 +80,16 @@ public class RecDic {
         DB db = DB.getDB();
         return db.Query(c);
     }
-    
+    public static boolean DelCustomer(String username){
+         VipCustomer c = new VipCustomer();
+         c.username = username;
+         List<VipCustomer> list = DB.getDB().Query(c);
+        if(list.size()==0){
+            return false;
+        }
+        c = list.get(0);
+         return DB.getDB().Delete(c);
+    }
     public static boolean SaveVipCoustomInfo(VipCustomer coustomer){
         DB db = DB.getDB();
         VipCustomer c = new VipCustomer();
@@ -98,6 +107,9 @@ public class RecDic {
             c.Weight = coustomer.Weight;
             c.Mobile = coustomer.Mobile;
             c.realname = coustomer.realname;
+            c.psw = coustomer.psw;
+            c.Enterprise = coustomer.Enterprise;
+            c.Name = coustomer.Name;
              return db.Store(c);
             
         }
@@ -118,6 +130,13 @@ public class RecDic {
             return db.Store(c);
         }  
     }
+    public static List<VipCustomer> QueryVipCustomer(String Enterprise){
+        VipCustomer c = new VipCustomer();
+        c.Enterprise = Enterprise;
+        List<VipCustomer> list = DB.getDB().Query(c);
+
+        return list;
+    }
     public static VipCustomer GetVipCustomer(String username){
          DB db = DB.getDB();
         VipCustomer c = new VipCustomer();
@@ -127,6 +146,12 @@ public class RecDic {
             return list.get(0);
         }
         return null;
+    }
+    public static VipCustomer CustomerLogin(String username,String psw){
+        VipCustomer c = GetVipCustomer(username);
+        if(c==null) return null;
+        if(c.psw.equals(psw)==false) return null;
+        return c;
     }
     public static List<SignInStc> StcTrainerCourse(){
         Map<String,SignInStc> map = new HashMap();

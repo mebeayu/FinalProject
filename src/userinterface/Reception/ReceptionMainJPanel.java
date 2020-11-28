@@ -6,6 +6,8 @@
 package userinterface.Reception;
 
 import Business.EcoSystem;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,12 +16,13 @@ import Business.EcoSystem;
 public class ReceptionMainJPanel extends javax.swing.JPanel {
 
     private EcoSystem system;
+    JPanel container;
     /**
      * Creates new form ReceptionMainJPanel
      */
-    public ReceptionMainJPanel(EcoSystem system) {
+    public ReceptionMainJPanel(JPanel container) {
         initComponents();
-        this.system = system;
+        this.container = container;
         
     }
 
@@ -33,12 +36,22 @@ public class ReceptionMainJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCourse = new javax.swing.JButton();
         layContainer = new javax.swing.JPanel();
 
         jButton1.setText("Customer Manager");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Course Manage");
+        btnCourse.setText("Course Manage");
+        btnCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCourseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layContainerLayout = new javax.swing.GroupLayout(layContainer);
         layContainer.setLayout(layContainerLayout);
@@ -59,7 +72,7 @@ public class ReceptionMainJPanel extends javax.swing.JPanel {
                 .addGap(9, 9, 9)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(836, Short.MAX_VALUE))
             .addComponent(layContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -69,16 +82,28 @@ public class ReceptionMainJPanel extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnCourse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(layContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCourseActionPerformed
+                CardLayout layout=(CardLayout)this.container.getLayout();
+                this.container.add("workArea",new CourseJPanel(container));
+                layout.next(container);
+    }//GEN-LAST:event_btnCourseActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CardLayout layout=(CardLayout)this.container.getLayout();
+        this.container.add("workArea",new CustomerJPanel(container));
+        layout.next(container);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCourse;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel layContainer;
     // End of variables declaration//GEN-END:variables
 }

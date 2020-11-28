@@ -5,6 +5,8 @@
 package Business.UserAccount;
 
 import Business.Employee.Employee;
+import Business.Logic.RecDic;
+import Business.Models.VipCustomer;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -29,6 +31,10 @@ public class UserAccountDirectory {
             if (ua.getUsername().equals(username) && ua.getPassword().equals(password)){
                 return ua;
             }
+        VipCustomer c = RecDic.CustomerLogin(username, password);
+        if(c==null) return null;
+        UserAccount ua = new UserAccount();
+        ua.customer = c;
         return null;
     }
     

@@ -9,8 +9,13 @@ import Business.Logic.RecDic;
 import Business.Logic.UserDic;
 import Business.Models.Course;
 import Business.Models.User;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
 import Common.DB;
+import java.awt.CardLayout;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
 
@@ -20,19 +25,21 @@ import userinterface.MainJFrame;
  */
 public class CourseJPanel extends javax.swing.JPanel {
 
+    JPanel container;
     private String CourseID = null;
     List<Course> listCourse;
     /**
      * Creates new form CourseJPanel
      */
-    public CourseJPanel() {
+    public CourseJPanel(JPanel container) {
         initComponents();
+        this.container = container;
         LoadTrainerData();
         LoadCourseData();
     }
     public void LoadCourseData(){
         
-        listCourse = RecDic.QueryCourse(null,"0");
+        listCourse = RecDic.QueryCourse(MainJFrame.userAccount.Enterprise.getName(),"0");
         DefaultTableModel tableModel = (DefaultTableModel)this.tableCourse.getModel();
         String[] cols = new String[]{"Course Name","Date","Time","Trainer","Class Hour","Address"};
         String[][] rows= new String[listCourse.size()][6];
@@ -47,10 +54,23 @@ public class CourseJPanel extends javax.swing.JPanel {
         tableModel.setDataVector(rows, cols);
     }
     public void LoadTrainerData(){
-        List<User> list = UserDic.QueryUseyByTypes(new String[]{"4"});
-        for (int i = 0; i < list.size(); i++) {
-            this.comboTrainer.addItem(list.get(i));
+        for (int i = 0; i < MainJFrame.userAccount.Enterprise.getOrganizationDirectory().getOrganizationList().size(); i++) {
+            Organization o = MainJFrame.userAccount.Enterprise.getOrganizationDirectory().getOrganizationList().get(i);
+            ArrayList<UserAccount> list = o.getUserAccountDirectory().getUserAccountList();
+            for (int j = 0; j < list.size(); j++) {
+               
+                UserAccount u = list.get(j);
+                 System.out.println(u.getRole().getType());
+                if(u.getRole().getType().equals("PrivateTrainer")||u.getRole().getType().equals("CommonTrainer")){
+                    this.comboTrainer.addItem(u.getUsername());
+                }
+            }
         }
+       
+//        List<User> list = UserDic.QueryUseyByTypes(new String[]{"4"});
+//        for (int i = 0; i < list.size(); i++) {
+//            this.comboTrainer.addItem(list.get(i));
+//        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,7 +88,7 @@ public class CourseJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtCourseTime = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        comboTrainer = new javax.swing.JComboBox<User>();
+        comboTrainer = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         txtClassHour = new javax.swing.JFormattedTextField();
         btnSave = new javax.swing.JButton();
@@ -77,6 +97,7 @@ public class CourseJPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("Course Name:");
 
@@ -90,7 +111,7 @@ public class CourseJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Trainer:");
 
-        comboTrainer.setModel(new javax.swing.DefaultComboBoxModel<User>());
+        comboTrainer.setModel(new javax.swing.DefaultComboBoxModel<String>());
 
         jLabel5.setText("Class Hour(minute):");
 
@@ -127,6 +148,13 @@ public class CourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,7 +169,14 @@ public class CourseJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel7)
                                 .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addComponent(btnReset)
+                                .addGap(0, 19, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCourseName)
@@ -158,14 +193,9 @@ public class CourseJPanel extends javax.swing.JPanel {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtClassHour)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                                .addComponent(btnReset)))
-                        .addGap(0, 19, Short.MAX_VALUE))
+                                    .addComponent(txtClassHour))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBack))))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -179,7 +209,8 @@ public class CourseJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(txtCourseDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -193,7 +224,7 @@ public class CourseJPanel extends javax.swing.JPanel {
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,10 +238,10 @@ public class CourseJPanel extends javax.swing.JPanel {
         if(this.txtClassHour.getText().isEmpty())this.txtClassHour.setText("0");
         c.ClassHour = Integer.parseInt(this.txtClassHour.getText());
         c.Address = this.txtAddress.getText();
-        User trainer = (User)this.comboTrainer.getSelectedItem();
-        c.TrainerName = trainer.realname;
-        c.TrainerUserName = trainer.username;
-        //c.OrgID = MainJFrame.user.OrgID;
+        c.TrainerUserName = this.comboTrainer.getSelectedItem().toString();
+        c.TrainerName = c.TrainerUserName;
+        //c.TrainerUserName = trainer.username;
+        c.OrgID = MainJFrame.userAccount.Enterprise.getName();
         
         c.IsPrivate = "0";
         boolean res = RecDic.SaveCourse(c);
@@ -246,11 +277,18 @@ public class CourseJPanel extends javax.swing.JPanel {
         ReSet();
     }//GEN-LAST:event_btnResetActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<User> comboTrainer;
+    private javax.swing.JComboBox<String> comboTrainer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
