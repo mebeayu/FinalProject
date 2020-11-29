@@ -83,7 +83,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtPsw = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -105,6 +104,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
         tableCustomer = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
+        txtPsw = new javax.swing.JTextField();
 
         jLabel1.setText("username");
 
@@ -187,16 +187,16 @@ public class CustomerJPanel extends javax.swing.JPanel {
                             .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                             .addComponent(txtHeight))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtWeight)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -226,7 +226,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboSex, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 26, Short.MAX_VALUE)))
+                        .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -237,7 +237,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
@@ -245,7 +244,8 @@ public class CustomerJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(comboSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +276,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         VipCustomer  c= new VipCustomer();
         c.username = this.txtUserName.getText();
-        c.psw = this.txtPsw.getPassword().toString();
+        c.psw = this.txtPsw.getText();
         c.Name = this.txtName.getText();
         c.Role = this.combRole.getSelectedItem().toString();
         c.Age = this.txtAge.getText();
@@ -344,7 +344,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtHeight;
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtName;
-    private javax.swing.JPasswordField txtPsw;
+    private javax.swing.JTextField txtPsw;
     private javax.swing.JTextField txtUserName;
     private javax.swing.JTextField txtWeight;
     // End of variables declaration//GEN-END:variables

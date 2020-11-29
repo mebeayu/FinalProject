@@ -61,7 +61,7 @@ public class CourseJPanel extends javax.swing.JPanel {
                
                 UserAccount u = list.get(j);
                  System.out.println(u.getRole().getType());
-                if(u.getRole().getType().equals("PrivateTrainer")||u.getRole().getType().equals("CommonTrainer")){
+                if(u.getRole().getType().equals("CommonTrainer")){
                     this.comboTrainer.addItem(u.getUsername());
                 }
             }

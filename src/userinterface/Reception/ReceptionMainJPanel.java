@@ -35,9 +35,16 @@ public class ReceptionMainJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnStc = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnCourse = new javax.swing.JButton();
-        layContainer = new javax.swing.JPanel();
+
+        btnStc.setText("Sign In Stc");
+        btnStc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStcActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Customer Manager");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -53,38 +60,28 @@ public class ReceptionMainJPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layContainerLayout = new javax.swing.GroupLayout(layContainer);
-        layContainer.setLayout(layContainerLayout);
-        layContainerLayout.setHorizontalGroup(
-            layContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        layContainerLayout.setVerticalGroup(
-            layContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(btnCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(836, Short.MAX_VALUE))
-            .addComponent(layContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCourse, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(btnStc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(982, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnCourse))
+                .addGap(19, 19, 19)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(layContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnCourse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnStc)
+                .addContainerGap(781, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -100,10 +97,16 @@ public class ReceptionMainJPanel extends javax.swing.JPanel {
         layout.next(container);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnStcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStcActionPerformed
+        CardLayout layout=(CardLayout)this.container.getLayout();
+        this.container.add("workArea",new SignInStcJPanel(container));
+        layout.next(container);        
+    }//GEN-LAST:event_btnStcActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCourse;
+    private javax.swing.JButton btnStc;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel layContainer;
     // End of variables declaration//GEN-END:variables
 }

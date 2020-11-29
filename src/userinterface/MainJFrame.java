@@ -16,7 +16,9 @@ import Common.DB;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.CustomerRole.CustomerMainJPanel;
 import userinterface.Reception.ReceptionMainJPanel;
+import userinterface.trainer.TrainerMainJPanel;
 
 /**
  *
@@ -186,7 +188,7 @@ public class MainJFrame extends javax.swing.JFrame {
             return;
         }
         else{
-             System.out.println(MainJFrame.userAccount.getRole().getType());
+             //System.out.println(MainJFrame.userAccount.getRole().getType());
              userAccount.Enterprise = inEnterprise;
              if(userAccount.customer==null){
                 if (MainJFrame.userAccount.getRole().getType().equals("Reception")) {
@@ -195,7 +197,9 @@ public class MainJFrame extends javax.swing.JFrame {
                     layout.next(container);
                 }
                 else if(MainJFrame.userAccount.getRole().getType().equals("CommonTrainer")||MainJFrame.userAccount.getRole().getType().equals("PrivateTrainer")){
-                    
+                    CardLayout layout=(CardLayout)container.getLayout();
+                    container.add("workArea",new TrainerMainJPanel(this.container));
+                    layout.next(container);
                 }
 
                 else{
@@ -204,8 +208,10 @@ public class MainJFrame extends javax.swing.JFrame {
                    layout.next(container);
                 }
              }
-             else{
-                 
+             else{//CustomerMainJPanel
+                 CardLayout layout=(CardLayout)container.getLayout();
+                    container.add("workArea",new CustomerMainJPanel(this.container));
+                    layout.next(container);
              }
              
             

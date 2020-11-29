@@ -8,7 +8,9 @@ package userinterface.trainer;
 import Business.Logic.CusDic;
 import Business.Logic.TraDic;
 import Business.Models.CourseRecord;
+import java.awt.CardLayout;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
 
@@ -18,11 +20,13 @@ import userinterface.MainJFrame;
  */
 public class ViewCourseRecordJPanel extends javax.swing.JPanel {
 
+    JPanel container;
     /**
      * Creates new form ViewCourseRecordJPanel
      */
-    public ViewCourseRecordJPanel() {
+    public ViewCourseRecordJPanel(JPanel container) {
         initComponents();
+        this.container = container;
         LoadRecord();
     }
     public void LoadRecord(){
@@ -33,7 +37,7 @@ public class ViewCourseRecordJPanel extends javax.swing.JPanel {
             rows[i][0] = listCourseRecord.get(i).CourseName;
             rows[i][1] = listCourseRecord.get(i).CourseDate;
             rows[i][2] = listCourseRecord.get(i).CourseTime;
-            rows[i][3] = listCourseRecord.get(i).realname;
+            rows[i][3] = listCourseRecord.get(i).username;
             rows[i][4] = listCourseRecord.get(i).CheckTime;
             
         }
@@ -51,6 +55,7 @@ public class ViewCourseRecordJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCourseRecord = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
 
         tableCourseRecord.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -62,13 +67,24 @@ public class ViewCourseRecordJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tableCourseRecord);
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -76,12 +92,21 @@ public class ViewCourseRecordJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);  
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableCourseRecord;
     // End of variables declaration//GEN-END:variables

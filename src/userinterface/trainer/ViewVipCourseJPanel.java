@@ -9,6 +9,7 @@ import Business.Logic.RecDic;
 import Business.Logic.TraDic;
 import Business.Models.Course;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
 
@@ -18,11 +19,13 @@ import userinterface.MainJFrame;
  */
 public class ViewVipCourseJPanel extends javax.swing.JPanel {
 
+    JPanel container;
     /**
      * Creates new form ViewVipCourseJPanel
      */
-    public ViewVipCourseJPanel() {
+    public ViewVipCourseJPanel(JPanel container) {
         initComponents();
+        this.container = container;
         LoadCourseData();
     }
     public void LoadCourseData(){

@@ -8,7 +8,9 @@ package userinterface.trainer;
 import Business.Logic.RecDic;
 import Business.Models.Course;
 import Business.Models.User;
+import java.awt.CardLayout;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
 
@@ -18,15 +20,15 @@ import userinterface.MainJFrame;
  */
 public class SetMyCourseJPanel extends javax.swing.JPanel {
 
-    
+    JPanel container;
     private String CourseID = null;
     List<Course> listCourse;
     /**
      * Creates new form SetMyCourseJPanel
      */
-    public SetMyCourseJPanel() {
+    public SetMyCourseJPanel(JPanel container) {
         initComponents();
-        
+        this.container = container;
         this.LoadCourseData();
     }
     private void ReSet(){
@@ -60,6 +62,7 @@ public class SetMyCourseJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtClassHour = new javax.swing.JFormattedTextField();
         btnSave = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("Course Name:");
 
@@ -106,6 +109,13 @@ public class SetMyCourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,7 +146,9 @@ public class SetMyCourseJPanel extends javax.swing.JPanel {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtClassHour)))
+                                    .addComponent(txtClassHour))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBack))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -155,7 +167,8 @@ public class SetMyCourseJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(txtCourseDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -212,8 +225,15 @@ public class SetMyCourseJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);  
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;

@@ -9,7 +9,9 @@ import Business.Logic.RecDic;
 import Business.Logic.TraDic;
 import Business.Models.SignInStc;
 import Business.Models.VipCustomer;
+import java.awt.CardLayout;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
 
@@ -19,11 +21,13 @@ import userinterface.MainJFrame;
  */
 public class SignInStcJPanel extends javax.swing.JPanel {
 
+    JPanel container;
     /**
      * Creates new form SignInStcJPanel
      */
-    public SignInStcJPanel() {
+    public SignInStcJPanel(JPanel container) {
         initComponents();
+        this.container = container;
         LoadTrainerCourse();
         LoadCustomerCourse();
     }
@@ -43,7 +47,7 @@ public class SignInStcJPanel extends javax.swing.JPanel {
         String[] cols = new String[]{"Customer Name","Course Count"};
         String[][] rows= new String[list.size()][2];
         for (int i = 0; i < list.size(); i++) {
-            rows[i][0] = list.get(i).realname;
+            rows[i][0] = list.get(i).username;
             rows[i][1] = String.format("%d", list.get(i).Count);   
         }
         DefaultTableModel tableModel = (DefaultTableModel)this.tableCustomer.getModel();
@@ -64,6 +68,7 @@ public class SignInStcJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableCustomer = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("Trainer Course");
 
@@ -89,6 +94,13 @@ public class SignInStcJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tableCustomer);
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,12 +108,15 @@ public class SignInStcJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(77, 77, 77)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnBack))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -115,12 +130,21 @@ public class SignInStcJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBack)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container); 
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

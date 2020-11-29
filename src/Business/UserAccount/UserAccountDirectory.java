@@ -35,7 +35,7 @@ public class UserAccountDirectory {
         if(c==null) return null;
         UserAccount ua = new UserAccount();
         ua.customer = c;
-        return null;
+        return ua;
     }
     
     public UserAccount createUserAccount(String username, String password, Employee employee, Role role){
