@@ -9,7 +9,9 @@ import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -106,6 +108,10 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHealthInformationActionPerformed
 
     private void btnSignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignActionPerformed
+        if (MainJFrame.userAccount.customer==null) {
+            JOptionPane.showMessageDialog(null, "You have not input cunstomer info");
+            return;
+        }
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         userProcessContainer.add("workArea",new CourseRecordJPanel(this.userProcessContainer));
         layout.next(userProcessContainer);
