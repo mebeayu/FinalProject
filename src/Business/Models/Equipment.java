@@ -13,6 +13,7 @@ public class Equipment {
     public String EquipmentID;
     public String EquipmentName;
     public String Enterprise;
+    public byte[] Image;
     @Override
     public String toString() {
         return EquipmentName;

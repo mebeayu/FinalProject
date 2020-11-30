@@ -9,7 +9,22 @@ import Business.Logic.EngDic;
 import Business.Logic.RecDic;
 import Business.Models.Equipment;
 import java.awt.CardLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
@@ -20,6 +35,7 @@ import userinterface.MainJFrame;
  */
 public class EquipmentJPanel extends javax.swing.JPanel {
 
+    byte[] Image;
     JPanel container;
     String Enterprise;
     List<Equipment> listEquipment;
@@ -30,6 +46,7 @@ public class EquipmentJPanel extends javax.swing.JPanel {
         initComponents();
         this.container = container;
         Enterprise =  MainJFrame.userAccount.Enterprise.getName();
+        this.labImg.setSize(100, 100);
         LoadData();
     }
 
@@ -61,6 +78,7 @@ public class EquipmentJPanel extends javax.swing.JPanel {
         btnAdd = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        labImg = new javax.swing.JLabel();
 
         tableEquipment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,6 +88,11 @@ public class EquipmentJPanel extends javax.swing.JPanel {
 
             }
         ));
+        tableEquipment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableEquipmentMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableEquipment);
 
         jLabel1.setText("Equipment Name");
@@ -95,42 +118,58 @@ public class EquipmentJPanel extends javax.swing.JPanel {
             }
         });
 
+        labImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        labImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labImgMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDel))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labImg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBack)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnDel)
+                                .addGap(10, 10, 10))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 226, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDel)
-                    .addComponent(btnBack))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(txtEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labImg, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack)
+                    .addComponent(btnDel))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -141,7 +180,7 @@ public class EquipmentJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        EngDic.AddEquipment(this.txtEquipment.getText(), Enterprise);
+        EngDic.AddEquipment(this.txtEquipment.getText(), Enterprise,this.Image);
         LoadData();
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -153,6 +192,75 @@ public class EquipmentJPanel extends javax.swing.JPanel {
         LoadData();
     }//GEN-LAST:event_btnDelActionPerformed
 
+    private void labImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labImgMouseClicked
+ 
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            String path = chooser.getSelectedFile().getAbsoluteFile().toString();
+            System.out.println(path);
+            File f = new File(path);           
+            BufferedImage bi; 
+            try{
+                bi = ImageIO.read(f); 
+               
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();    
+                ImageIO.write(bi, "jpg", baos);    
+                byte[] bytes = baos.toByteArray(); 
+                
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                Iterator<?> readers = ImageIO.getImageReadersByFormatName( "jpg" );
+                ImageReader reader = (ImageReader) readers.next();
+                Object source = bis;
+                ImageInputStream iis = ImageIO.createImageInputStream(source);
+                reader.setInput(iis, true );
+                ImageReadParam param = reader.getDefaultReadParam();
+                Image image = reader.read( 0 , param);
+                
+                ImageIcon pic1 = new ImageIcon(image);
+                pic1.setImage(pic1.getImage().getScaledInstance(200,200,0));
+                this.labImg.setIcon(pic1);
+                this.Image = bytes;
+                
+            }
+            catch(IOException ex){
+                
+            }
+            
+            
+            
+        }
+    }//GEN-LAST:event_labImgMouseClicked
+
+    private void tableEquipmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEquipmentMouseClicked
+        int n = this.tableEquipment.getSelectedRow();
+        if(n<0) return;
+        Equipment e = this.listEquipment.get(n);
+        if(e.Image!=null){
+            try{
+                byte[] bytes = e.Image;
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                Iterator<?> readers = ImageIO.getImageReadersByFormatName( "jpg" );
+                ImageReader reader = (ImageReader) readers.next();
+                Object source = bis;
+                ImageInputStream iis = ImageIO.createImageInputStream(source);
+                reader.setInput(iis, true );
+                ImageReadParam param = reader.getDefaultReadParam();
+                Image image = reader.read( 0 , param);
+                
+                ImageIcon pic1 = new ImageIcon(image);
+                pic1.setImage(pic1.getImage().getScaledInstance(200,200,0));
+                this.labImg.setIcon(pic1);
+                this.Image = bytes;
+            }
+            catch(IOException ex){}
+        }
+        else{
+            this.Image = null;
+            this.labImg.setIcon(null);
+        }
+    }//GEN-LAST:event_tableEquipmentMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -160,6 +268,7 @@ public class EquipmentJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnDel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labImg;
     private javax.swing.JTable tableEquipment;
     private javax.swing.JTextField txtEquipment;
     // End of variables declaration//GEN-END:variables

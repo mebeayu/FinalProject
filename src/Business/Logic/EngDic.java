@@ -17,11 +17,12 @@ import java.util.List;
  * @author 27246
  */
 public class EngDic {
-    public static boolean AddEquipment(String EquipmentName,String Enterprise){
+    public static boolean AddEquipment(String EquipmentName,String Enterprise,byte[] img){
         Equipment e = new Equipment();
         e.EquipmentID = DB.UIID();
         e.EquipmentName = EquipmentName;
         e.Enterprise = Enterprise;
+        e.Image  = img;
         return DB.getDB().Store(e);
     }
     public static List<Equipment> QueryEquipment(String Enterprise){
