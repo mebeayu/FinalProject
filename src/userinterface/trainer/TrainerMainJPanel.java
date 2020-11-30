@@ -7,6 +7,7 @@ package userinterface.trainer;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -21,6 +22,11 @@ public class TrainerMainJPanel extends javax.swing.JPanel {
     public TrainerMainJPanel(JPanel container) {
         initComponents();
         this.container = container;
+        if(MainJFrame.userAccount.getRole().getType().equals("CommonTrainer")){
+            this.btnSetCourse.setEnabled(false);
+            this.btnViewCustomer.setEnabled(false);
+        }
+            
     }
 
     /**
@@ -81,15 +87,15 @@ public class TrainerMainJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSetCourse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(70, 70, 70)
                 .addComponent(btnViewCourse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnViewRecord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnViewCustomer)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSetCourse)
+                .addContainerGap(229, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

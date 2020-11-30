@@ -17,6 +17,7 @@ import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userinterface.CustomerRole.CustomerMainJPanel;
+import userinterface.Engineer.EngineerMainJPanel;
 import userinterface.Reception.ReceptionMainJPanel;
 import userinterface.trainer.TrainerMainJPanel;
 
@@ -201,7 +202,11 @@ public class MainJFrame extends javax.swing.JFrame {
                     container.add("workArea",new TrainerMainJPanel(this.container));
                     layout.next(container);
                 }
-
+                else if(MainJFrame.userAccount.getRole().getType().equals("Engineer")){
+                    CardLayout layout=(CardLayout)container.getLayout();
+                    container.add("workArea",new EngineerMainJPanel(this.container));
+                    layout.next(container);                    
+                }
                 else{
                     CardLayout layout=(CardLayout)container.getLayout();
                    container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
