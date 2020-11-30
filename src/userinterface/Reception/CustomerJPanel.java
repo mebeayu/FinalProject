@@ -5,8 +5,10 @@
  */
 package userinterface.Reception;
 
+import Business.Enterprise.Enterprise;
 import Business.Logic.RecDic;
 import Business.Models.VipCustomer;
+import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -30,8 +32,30 @@ public class CustomerJPanel extends javax.swing.JPanel {
     public CustomerJPanel(JPanel container) {
         initComponents();
         this.container = container;
+        LoadUser();
         LoadTrainerData();
         LoadData();
+    }
+    public void LoadUser(){
+        for(Network network : MainJFrame.userAccount.system.getNetworkList()){
+            for(Enterprise e:network.getEnterpriseDirectory().getEnterpriseList()){
+                
+                for(Enterprise cusEnterprise : network.getEnterpriseDirectory().getEnterpriseList()){
+                    if(e.getName().equals(MainJFrame.userAccount.Enterprise.getName())){
+                        for(Organization org : cusEnterprise.getOrganizationDirectory().getOrganizationList()){
+                            for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
+                                if(ua.getRole().getType().equals("CustomerWithTrainer")||ua.getRole().getType().equals("Customer")){
+                                    this.comUser.addItem(ua);
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
+        
     }
     public void LoadData(){
         listVipCustomer = RecDic.QueryVipCustomer(MainJFrame.userAccount.Enterprise.getName());
@@ -81,8 +105,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtUserName = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -104,11 +126,9 @@ public class CustomerJPanel extends javax.swing.JPanel {
         tableCustomer = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
-        txtPsw = new javax.swing.JTextField();
+        comUser = new javax.swing.JComboBox<>();
 
         jLabel1.setText("username");
-
-        jLabel2.setText("password");
 
         jLabel3.setText("Name:");
 
@@ -166,6 +186,13 @@ public class CustomerJPanel extends javax.swing.JPanel {
             }
         });
 
+        comUser.setModel(new javax.swing.DefaultComboBoxModel<>());
+        comUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,19 +210,14 @@ public class CustomerJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                            .addComponent(txtHeight))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comUser, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -235,8 +257,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
@@ -245,7 +265,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
                     .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(comboSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPsw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,8 +295,8 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         VipCustomer  c= new VipCustomer();
-        c.username = this.txtUserName.getText();
-        c.psw = this.txtPsw.getText();
+        c.username = this.comUser.getSelectedItem().toString();
+        //c.psw = this.txtPsw.getText();
         c.Name = this.txtName.getText();
         c.Role = this.combRole.getSelectedItem().toString();
         c.Age = this.txtAge.getText();
@@ -286,6 +306,10 @@ public class CustomerJPanel extends javax.swing.JPanel {
         c.Mobile = this.txtMobile.getText();
         c.Enterprise = MainJFrame.userAccount.Enterprise.getName();
         c.PrivateTrainerUserName = this.combTrainer.getSelectedItem().toString();
+        UserAccount u = (UserAccount)this.comUser.getSelectedItem();
+        if (u.getRole().getType().equals("Customer")) {
+            c.PrivateTrainerUserName = "";
+        }
         RecDic.SaveVipCoustomInfo(c);
         ReSet();
         LoadData();
@@ -301,17 +325,30 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void tableCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerMouseClicked
         int n = this.tableCustomer.getSelectedRow();
         if(n<0) return;
-        this.txtUserName.setText(this.listVipCustomer.get(n).username);
-        this.txtPsw.setText(this.listVipCustomer.get(n).psw);
+        //this.txtUserName.setText(this.listVipCustomer.get(n).username);
+        //this.txtPsw.setText(this.listVipCustomer.get(n).psw);
         this.txtName.setText(this.listVipCustomer.get(n).Name);
         this.txtAge.setText(this.listVipCustomer.get(n).Age);
         this.txtHeight.setText(this.listVipCustomer.get(n).Height);
         this.txtWeight.setText(this.listVipCustomer.get(n).Weight);
         this.txtMobile.setText(this.listVipCustomer.get(n).Mobile);
     }//GEN-LAST:event_tableCustomerMouseClicked
+
+    private void comUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comUserActionPerformed
+        System.out.println(this.comUser.getSelectedItem().toString());
+        UserAccount u = (UserAccount)this.comUser.getSelectedItem();
+        this.combRole.removeAllItems();
+        this.combRole.addItem(u.getRole().getType());
+        if (u.getRole().getType().equals("Customer")) {
+            this.combTrainer.setEnabled(false);
+        }
+        else{
+            this.combTrainer.setEnabled(true);
+        }
+    }//GEN-LAST:event_comUserActionPerformed
     public void ReSet(){
-        this.txtUserName.setText("");
-        this.txtPsw.setText("");
+        //this.txtUserName.setText("");
+        //this.txtPsw.setText("");
         this.txtName.setText("");
         this.txtAge.setText("");
         this.txtHeight.setText("");
@@ -325,12 +362,12 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<UserAccount> comUser;
     private javax.swing.JComboBox<String> combRole;
     private javax.swing.JComboBox<String> combTrainer;
     private javax.swing.JComboBox<String> comboSex;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -344,8 +381,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtHeight;
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPsw;
-    private javax.swing.JTextField txtUserName;
     private javax.swing.JTextField txtWeight;
     // End of variables declaration//GEN-END:variables
 }

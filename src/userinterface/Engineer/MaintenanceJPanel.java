@@ -9,9 +9,18 @@ import Business.Logic.EngDic;
 import Business.Models.Equipment;
 import Business.Models.Maintenance;
 import java.awt.CardLayout;
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
@@ -72,10 +81,16 @@ public class MaintenanceJPanel extends javax.swing.JPanel {
         btnComplete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        labImg = new javax.swing.JLabel();
 
         jLabel1.setText("Equipment:");
 
         comEquipment.setModel(new javax.swing.DefaultComboBoxModel<Equipment>());
+        comEquipment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comEquipmentActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Reason:");
 
@@ -87,6 +102,11 @@ public class MaintenanceJPanel extends javax.swing.JPanel {
 
             }
         ));
+        tableMaintenance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMaintenanceMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableMaintenance);
 
         btnComplete.setText("Set Complete");
@@ -110,28 +130,42 @@ public class MaintenanceJPanel extends javax.swing.JPanel {
             }
         });
 
+        labImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnComplete))
-                    .addComponent(jScrollPane1)
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnComplete))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labImg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(comEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtReason, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtReason, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -144,13 +178,15 @@ public class MaintenanceJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(txtReason, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd))
+                .addGap(4, 4, 4)
+                .addComponent(labImg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnComplete)
-                    .addComponent(btnBack))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnComplete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,6 +217,31 @@ public class MaintenanceJPanel extends javax.swing.JPanel {
         this.LoadData();
     }//GEN-LAST:event_btnCompleteActionPerformed
 
+    private void tableMaintenanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMaintenanceMouseClicked
+        
+    }//GEN-LAST:event_tableMaintenanceMouseClicked
+
+    private void comEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comEquipmentActionPerformed
+        Equipment e = (Equipment)this.comEquipment.getSelectedItem();
+        try{
+                byte[] bytes = e.Image;
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                Iterator<?> readers = ImageIO.getImageReadersByFormatName( "jpg" );
+                ImageReader reader = (ImageReader) readers.next();
+                Object source = bis;
+                ImageInputStream iis = ImageIO.createImageInputStream(source);
+                reader.setInput(iis, true );
+                ImageReadParam param = reader.getDefaultReadParam();
+                Image image = reader.read( 0 , param);
+                
+                ImageIcon pic1 = new ImageIcon(image);
+                pic1.setImage(pic1.getImage().getScaledInstance(200,200,0));
+                this.labImg.setIcon(pic1);
+                
+            }
+            catch(IOException ex){}
+    }//GEN-LAST:event_comEquipmentActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -190,6 +251,7 @@ public class MaintenanceJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labImg;
     private javax.swing.JTable tableMaintenance;
     private javax.swing.JTextField txtReason;
     // End of variables declaration//GEN-END:variables

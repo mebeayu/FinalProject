@@ -84,9 +84,7 @@ public class CourseJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtCourseName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtCourseDate = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtCourseTime = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         comboTrainer = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
@@ -98,16 +96,14 @@ public class CourseJPanel extends javax.swing.JPanel {
         txtAddress = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        txtCourseDate = new javax.swing.JTextField();
+        txtCourseTime = new javax.swing.JTextField();
 
         jLabel1.setText("Course Name:");
 
         jLabel2.setText("Course Date:");
 
-        txtCourseDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
         jLabel3.setText("Time:");
-
-        txtCourseTime.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("HH:mm:ss"))));
 
         jLabel4.setText("Trainer:");
 
@@ -188,12 +184,12 @@ public class CourseJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCourseDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCourseDate, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtClassHour))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtCourseTime))
+                                    .addComponent(txtClassHour, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnBack))))
                     .addComponent(jScrollPane1))
@@ -207,10 +203,10 @@ public class CourseJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(txtCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(txtCourseDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack))
+                    .addComponent(btnBack)
+                    .addComponent(txtCourseDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCourseTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -299,8 +295,8 @@ public class CourseJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tableCourse;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JFormattedTextField txtClassHour;
-    private javax.swing.JFormattedTextField txtCourseDate;
+    private javax.swing.JTextField txtCourseDate;
     private javax.swing.JTextField txtCourseName;
-    private javax.swing.JFormattedTextField txtCourseTime;
+    private javax.swing.JTextField txtCourseTime;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,13 +29,10 @@ public class UserAccountDirectory {
     public UserAccount authenticateUser(String username, String password){
         for (UserAccount ua : userAccountList)
             if (ua.getUsername().equals(username) && ua.getPassword().equals(password)){
+                ua.customer = RecDic.GetVipCustomer(username);
                 return ua;
             }
-        VipCustomer c = RecDic.CustomerLogin(username, password);
-        if(c==null) return null;
-        UserAccount ua = new UserAccount();
-        ua.customer = c;
-        return ua;
+        return null;
     }
     
     public UserAccount createUserAccount(String username, String password, Employee employee, Role role){

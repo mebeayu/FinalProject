@@ -41,6 +41,7 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         btnHealthInformation = new javax.swing.JButton();
+        btnSign = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Please choose operation:");
@@ -49,6 +50,13 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
         btnHealthInformation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHealthInformationActionPerformed(evt);
+            }
+        });
+
+        btnSign.setText("Sign in Course");
+        btnSign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignActionPerformed(evt);
             }
         });
 
@@ -63,7 +71,9 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(166, 166, 166)
-                        .addComponent(btnHealthInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnHealthInformation, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(btnSign, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(232, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -73,7 +83,9 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(39, 39, 39)
                 .addComponent(btnHealthInformation)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSign)
+                .addContainerGap(261, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -93,9 +105,16 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnHealthInformationActionPerformed
 
+    private void btnSignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignActionPerformed
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        userProcessContainer.add("workArea",new CourseRecordJPanel(this.userProcessContainer));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnSignActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHealthInformation;
+    private javax.swing.JButton btnSign;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

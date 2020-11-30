@@ -7,6 +7,7 @@ package userinterface.CustomerRole;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -33,6 +34,8 @@ public class CustomerMainJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         btnSign = new javax.swing.JButton();
+        btnHealthInformation = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         btnSign.setText("Sign in Course");
         btnSign.addActionListener(new java.awt.event.ActionListener() {
@@ -41,21 +44,42 @@ public class CustomerMainJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnHealthInformation.setText("Health information");
+        btnHealthInformation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHealthInformationActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Please choose operation:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSign)
-                .addContainerGap(551, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnHealthInformation, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(btnSign, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(302, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addGap(32, 32, 32)
+                .addComponent(btnHealthInformation)
+                .addGap(18, 18, 18)
                 .addComponent(btnSign)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -65,8 +89,26 @@ public class CustomerMainJPanel extends javax.swing.JPanel {
         layout.next(container);
     }//GEN-LAST:event_btnSignActionPerformed
 
+    private void btnHealthInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHealthInformationActionPerformed
+        // TODO add your handling code here:
+        if(MainJFrame.userAccount.getRole().getType().equals("Customer")){
+            CustomerWorkAreaJPanel customerWorkAreaJPanel = new CustomerWorkAreaJPanel(container, MainJFrame.userAccount, MainJFrame.userAccount.Enterprise);
+            container.add("customerWorkAreaJPanel",customerWorkAreaJPanel);
+            CardLayout layout=(CardLayout)container.getLayout();
+            layout.next(container);
+        }
+        else{
+            VIPCustomerWorkAreaJPanel vipCustomerWorkAreaJPanel = new VIPCustomerWorkAreaJPanel(container, MainJFrame.userAccount,MainJFrame.userAccount.Enterprise);
+            container.add("vipCustomerWorkAreaJPanel",vipCustomerWorkAreaJPanel);
+            CardLayout layout=(CardLayout)container.getLayout();
+            layout.next(container);
+        }
+    }//GEN-LAST:event_btnHealthInformationActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHealthInformation;
     private javax.swing.JButton btnSign;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

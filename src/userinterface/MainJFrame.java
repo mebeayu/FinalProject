@@ -189,9 +189,10 @@ public class MainJFrame extends javax.swing.JFrame {
             return;
         }
         else{
-             //System.out.println(MainJFrame.userAccount.getRole().getType());
+             System.out.println(MainJFrame.userAccount.getRole().getType());
              userAccount.Enterprise = inEnterprise;
-             if(userAccount.customer==null){
+             userAccount.system = this.system;
+             
                 if (MainJFrame.userAccount.getRole().getType().equals("Reception")) {
                     CardLayout layout=(CardLayout)container.getLayout();
                     container.add("workArea",new ReceptionMainJPanel(this.container));
@@ -212,12 +213,7 @@ public class MainJFrame extends javax.swing.JFrame {
                    container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
                    layout.next(container);
                 }
-             }
-             else{//CustomerMainJPanel
-                 CardLayout layout=(CardLayout)container.getLayout();
-                    container.add("workArea",new CustomerMainJPanel(this.container));
-                    layout.next(container);
-             }
+            
              
             
         }

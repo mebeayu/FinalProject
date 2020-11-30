@@ -31,6 +31,15 @@ public class EngDic {
         return DB.getDB().Query(e);
         
     }
+    public static Equipment GetEquipment(String ID){
+        Equipment e = new Equipment();
+        e.EquipmentID = ID;
+        List<Equipment> list = DB.getDB().Query(e);
+        if (list.size()==0) {
+            return null;
+        }
+        return list.get(0);
+    }
     public static boolean DelEquipment(String ID){
         Equipment e = new Equipment();
         e.EquipmentID = ID;

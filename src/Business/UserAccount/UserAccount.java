@@ -4,6 +4,7 @@
  */
 package Business.UserAccount;
 
+import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Fitness.DietList;
@@ -26,6 +27,7 @@ public class UserAccount {
     private FitnessList fitnessList;
     private DietList dietList;
     public Enterprise Enterprise;
+    public EcoSystem system;
     public VipCustomer customer;
     public UserAccount() {
         workQueue = new WorkQueue();
